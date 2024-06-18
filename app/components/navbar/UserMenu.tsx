@@ -21,7 +21,6 @@ const UserMenu = () => {
                 className="
                     hidden
                     md:block
-                    text-sm
                     font-semibold
                     py-3
                     px-4
@@ -31,7 +30,7 @@ const UserMenu = () => {
                     cursor-pointer
                 "
             >
-                Rent out your home
+                Rent Out
             </div>
             <div
                 onClick={toggleOpen}
