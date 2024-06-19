@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import Button from "../Button";
 
 interface ModalProps {
     isOpen?: boolean,
@@ -158,7 +157,7 @@ interface ModalProps {
                                 gap-4
                                 w-full
                             ">
-                                <Button />
+                                {/* <Button /> */}
                             </div>
                         </div>
                     </div>
