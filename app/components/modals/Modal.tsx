@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import Button from "../Button";
 
 interface ModalProps {
     isOpen?: boolean,
@@ -13,7 +14,7 @@ interface ModalProps {
     actionLabel: string;
     disabled?: boolean;
     secondaryAction?: () => void;
-    secondaryLabel?: string;
+    secondaryActionLabel?: string;
 }
 
  const Modal = ({
@@ -26,7 +27,7 @@ interface ModalProps {
     actionLabel,
     disabled,
     secondaryAction,
-    secondaryLabel
+    secondaryActionLabel
  }: ModalProps) => {
 
     const [showModal, setShowModal] = useState(isOpen);
@@ -157,7 +158,19 @@ interface ModalProps {
                                 gap-4
                                 w-full
                             ">
-                                {/* <Button /> */}
+                                {secondaryAction && secondaryActionLabel && (
+                                    <Button
+                                        outline
+                                        disabled={disabled}
+                                        label={secondaryActionLabel!}
+                                        onClick={handleSecondaryAction}
+                                    />
+                                )}
+                                <Button
+                                    disabled={disabled}
+                                    label={actionLabel}
+                                    onClick={handleSubmit}
+                                />
                             </div>
                         </div>
                     </div>
