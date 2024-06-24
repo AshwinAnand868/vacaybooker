@@ -59,7 +59,7 @@ interface ModalProps {
             return;
         }
 
-        onSubmit();
+        secondaryAction();
     }, [disabled, secondaryAction]);
 
     if(!isOpen) {
