@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Heading from "../Heading";
+import Input from "../inputs/Input";
 import Modal from "./Modal";
 
 const RegisterModal = () => {
@@ -42,6 +43,7 @@ const RegisterModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
         <Heading title="Welcome to Vacay Booker" subtitle="Create an account!"/>
+        <Input required id="email" label="Email" errors={errors} disabled={isLoading} register={register} />
     </div>
   )
 
