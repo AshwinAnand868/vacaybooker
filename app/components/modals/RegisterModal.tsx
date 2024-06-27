@@ -4,6 +4,9 @@ import useRegisterModal from "@/app/hooks/useRegisterModal";
 import axios from "axios";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+import Button from "../Button";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Modal from "./Modal";
@@ -33,7 +36,7 @@ const RegisterModal = () => {
         registerModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error('Something went wrong.');
       })
       .finally(() => {
         setIsLoading(false);
@@ -46,6 +49,18 @@ const RegisterModal = () => {
         <Input required id="email" label="Email" errors={errors} disabled={isLoading} register={register} />
         <Input required id="name" label="Name" errors={errors} disabled={isLoading} register={register} />
         <Input required id="password" label="Password" type="password" errors={errors} disabled={isLoading} register={register} />
+    </div>
+  )
+
+  const footerContent = (
+    <div className="flex gap-4 flex-col mt-3">
+      <hr />
+      <Button
+        onClick={() => {}}
+        label="Continue with Google"
+        icon={FcGoogle}
+        outline
+      />
     </div>
   )
 
