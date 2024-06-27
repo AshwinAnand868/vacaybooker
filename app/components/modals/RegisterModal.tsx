@@ -44,6 +44,8 @@ const RegisterModal = () => {
     <div className="flex flex-col gap-4">
         <Heading title="Welcome to Vacay Booker" subtitle="Create an account!"/>
         <Input required id="email" label="Email" errors={errors} disabled={isLoading} register={register} />
+        <Input required id="name" label="Name" errors={errors} disabled={isLoading} register={register} />
+        <Input required id="password" label="Password" type="password" errors={errors} disabled={isLoading} register={register} />
     </div>
   )
 
