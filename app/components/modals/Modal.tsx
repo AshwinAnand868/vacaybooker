@@ -78,7 +78,7 @@ const Modal = ({
                 outline-none
                 focus:outline-none  
                 overflow-x-hidden
-                overflow-y-hidden
+                overflow-y-auto
             "
       >
         <div
@@ -90,8 +90,7 @@ const Modal = ({
                     xl:w-2/5
                     my-6
                     mx-auto
-                    h-full
-                    md:h-auto
+                    h-auto
                 "
         >
           {/* Content */}
@@ -99,7 +98,6 @@ const Modal = ({
             className={`
                     translate
                     duration-300
-                    h-full
                     ${showModal ? "translate-y-0" : "translate-y-full"}
                     ${showModal ? "opacity-100" : "opacity-0"}
                 `}
@@ -107,9 +105,7 @@ const Modal = ({
             <div
               className="
                         translate
-                        h-full
-                        lg:h-auto
-                        md:h-auto
+                        h-auto
                         border-0
                         rounded-lg
                         shadow-lg
@@ -131,7 +127,7 @@ const Modal = ({
                             rounded-t
                             justify-center
                             relative
-                            border-1-[1px]
+                            border-b-[1px]
                         "
               >
                 <button
@@ -151,7 +147,7 @@ const Modal = ({
                 <div className="text-lg font-semibold">{title}</div>
               </div>
               {/* Body */}
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="relative p-6 flex-auto overflow-y-auto">{body}</div>
               {/* Footer */}
               <div className="flex flex-col gap-2 p-6">
                 <div
@@ -177,6 +173,7 @@ const Modal = ({
                     onClick={handleSubmit}
                   />
                 </div>
+                {footer}
               </div>
             </div>
           </div>

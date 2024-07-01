@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import Button from "../Button";
 import Heading from "../Heading";
@@ -36,7 +37,7 @@ const RegisterModal = () => {
         registerModal.onClose();
       })
       .catch((error) => {
-        toast.error('Something went wrong.');
+        toast.error("Something went wrong.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -45,12 +46,34 @@ const RegisterModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-        <Heading title="Welcome to Vacay Booker" subtitle="Create an account!"/>
-        <Input required id="email" label="Email" errors={errors} disabled={isLoading} register={register} />
-        <Input required id="name" label="Name" errors={errors} disabled={isLoading} register={register} />
-        <Input required id="password" label="Password" type="password" errors={errors} disabled={isLoading} register={register} />
+      <Heading title="Welcome to Vacay Booker" subtitle="Create an account!" />
+      <Input
+        required
+        id="email"
+        label="Email"
+        errors={errors}
+        disabled={isLoading}
+        register={register}
+      />
+      <Input
+        required
+        id="name"
+        label="Name"
+        errors={errors}
+        disabled={isLoading}
+        register={register}
+      />
+      <Input
+        required
+        id="password"
+        label="Password"
+        type="password"
+        errors={errors}
+        disabled={isLoading}
+        register={register}
+      />
     </div>
-  )
+  );
 
   const footerContent = (
     <div className="flex gap-4 flex-col mt-3">
@@ -61,8 +84,20 @@ const RegisterModal = () => {
         icon={FcGoogle}
         outline
       />
+      <Button
+        onClick={() => {}}
+        label="Continue with Github"
+        icon={AiFillGithub}
+        outline
+      />
+      <div className="text-neutral-500 mt-4 font-light">
+        <div className="flex flex-row justify-center items-center gap-2">
+          <div>Already have an account?</div>
+          <div onClick={registerModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">Log in</div>
+        </div>
+      </div>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -73,6 +108,7 @@ const RegisterModal = () => {
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
+      footer={footerContent}
     />
   );
 };
