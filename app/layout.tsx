@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Nunito } from "next/font/google";
+import LoginModal from "./components/modals/LoginModal";
 import RegisterModal from "./components/modals/RegisterModal";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ToasterProvider />
         {/* <Modal secondaryActionLabel="Submit" actionLabel="Submit" title="Hello World!" isOpen /> */}
         <RegisterModal />
+        <LoginModal />
         <Navbar />
         {children}
         </body>
