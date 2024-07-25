@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Nunito } from "next/font/google";
+import getCurrentUser from "./actions/getCurrentUser";
 import LoginModal from "./components/modals/LoginModal";
 import RegisterModal from "./components/modals/RegisterModal";
 import Navbar from "./components/navbar/Navbar";
@@ -14,11 +15,16 @@ export const metadata: Metadata = {
   description: "Vacaybooker - book your next vacation here!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const currentUser = await getCurrentUser();
+
+
+
   return (
     <html lang="en">
       <body className={nunito.className}>
@@ -26,7 +32,7 @@ export default function RootLayout({
         {/* <Modal secondaryActionLabel="Submit" actionLabel="Submit" title="Hello World!" isOpen /> */}
         <RegisterModal />
         <LoginModal />
-        <Navbar />
+        <Navbar currentUser={currentUser}/>
         {children}
         </body>
     </html>

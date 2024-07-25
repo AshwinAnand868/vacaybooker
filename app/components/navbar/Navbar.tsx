@@ -1,36 +1,44 @@
-'use client';
+"use client";
 
+import { User } from "@prisma/client";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: User | null;
+}
+
+const Navbar = ({ currentUser }: NavbarProps) => {
+  console.log(currentUser);
+
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
-        <div
-            className="
+      <div
+        className="
                 py-1
                 border-b-[1px]
-            ">
-            <Container>
-                <div
-                    className="
+            "
+      >
+        <Container>
+          <div
+            className="
                         flex
                         items-center
                         justify-between
                         gap-3
                         md:gap-0
                     "
-                >
-                    <Logo /> 
-                    <Search />
-                    <UserMenu />
-                </div>
-            </Container>
-        </div>
+          >
+            <Logo />
+            <Search />
+            <UserMenu currentUser={currentUser}/>
+          </div>
+        </Container>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
