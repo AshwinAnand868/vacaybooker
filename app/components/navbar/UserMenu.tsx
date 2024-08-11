@@ -3,6 +3,7 @@
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
@@ -88,7 +89,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                 <MenuItem onClick={() => {}} label="My properties" />
                 <MenuItem onClick={() => {}} label="Rent my home" />
                 <hr />
-                <div onClick={() => {}} className="
+                <div onClick={() => signOut()} className="
                     px-4
                     py-3
                     hover:bg-neutral-100
