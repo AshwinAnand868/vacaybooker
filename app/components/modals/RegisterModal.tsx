@@ -2,6 +2,7 @@
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -79,13 +80,13 @@ const RegisterModal = () => {
     <div className="flex gap-4 flex-col mt-3">
       <hr />
       <Button
-        onClick={() => {}}
+        onClick={() => signIn('google')}
         label="Continue with Google"
         icon={FcGoogle}
         outline
       />
       <Button
-        onClick={() => {}}
+        onClick={() => signIn('github')}
         label="Continue with Github"
         icon={AiFillGithub}
         outline
