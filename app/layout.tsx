@@ -22,10 +22,6 @@ export default async function RootLayout({
 }>) {
 
   const currentUser = await getCurrentUser();
-
-  console.log("Current user");
-  console.log(currentUser);
-
   return (
     <html lang="en">
       <body className={nunito.className}>

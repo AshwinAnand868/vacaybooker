@@ -39,7 +39,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                     cursor-pointer
                 "
         >
-          Rent Out
+          Rent my home
         </div>
         <div
           onClick={toggleOpen}
