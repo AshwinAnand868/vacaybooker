@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname, useSearchParams } from "next/navigation";
 import { BsSnow } from "react-icons/bs";
 import { FaSkiing } from "react-icons/fa";
