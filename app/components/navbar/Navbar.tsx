@@ -2,7 +2,6 @@
 
 import { SafeUser } from "@/app/types";
 import { Suspense } from "react";
-import { LoaderIcon } from "react-hot-toast";
 import Container from "../Container";
 import Categories from "./Categories";
 import Logo from "./Logo";
@@ -40,7 +39,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
           </div>
         </Container>
       </div>
-      <Suspense fallback={<div className="flex justify-center items-center"><LoaderIcon /></div>}>
+      <Suspense fallback={<div className="flex justify-center items-center">Loading Categories...</div>}>
         <Categories />
       </Suspense>
     </div>

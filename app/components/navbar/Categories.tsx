@@ -128,6 +128,9 @@ const Categories = () => {
     return null;
   }
 
+  console.log("selected category");
+  console.log(sCategory);
+
   return (
     <Container>
       <div
