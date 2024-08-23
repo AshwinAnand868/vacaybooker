@@ -1,17 +1,18 @@
 'use client';
 
 import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BsSnow } from "react-icons/bs";
 import { FaSkiing } from "react-icons/fa";
 import {
-    GiBarn,
-    GiBoatFishing,
-    GiCastle,
-    GiCaveEntrance,
-    GiDesert,
-    GiForestCamp,
-    GiIsland,
-    GiWindmill,
+  GiBarn,
+  GiBoatFishing,
+  GiCastle,
+  GiCaveEntrance,
+  GiDesert,
+  GiForestCamp,
+  GiIsland,
+  GiWindmill,
 } from "react-icons/gi";
 import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
@@ -99,11 +100,29 @@ export const categories = [
 
 const Categories = () => {
   // only show the categories on the main page
-  const pathname = usePathname();
-  const isMainPage = pathname === "/";
+
   // is a main page
   const params = useSearchParams();
-  const category = params.get("category");
+  const [sCategory, setSCategory] = useState<string | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+  const pathname = usePathname();
+  const isMainPage = pathname === "/";
+  // const category = params.get("category");
+
+  useEffect(() => {
+    setHasMounted(true);
+
+    const selectedCategory = params.get("category");
+    setSCategory(selectedCategory);
+  }, [params]);
+
+  if (!hasMounted) {
+    // Avoid rendering anything until the component has mounted on the client
+    return null;
+  }
+
+  // Check if it's the main page
+  // const isMainPage = typeof window !== 'undefined' && window.location.pathname === "/";
 
   if (!isMainPage) {
     return null;
@@ -128,7 +147,7 @@ const Categories = () => {
               label={item.label}
               description={item.description}
               icon={item.icon}
-              selected={category === item.label}
+              selected={sCategory === item.label}
             />
           );
         })}

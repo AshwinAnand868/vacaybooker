@@ -2,22 +2,30 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IconType } from "react-icons";
 
 interface CategoryBoxProps {
     icon: IconType,
     label: string,
     description: string,
-    key: string,
     selected?: boolean
 }
-const CategoryBox = ({key, icon: Icon, label, description, selected}: CategoryBoxProps) => {
+const CategoryBox = ({icon: Icon, label, description, selected}: CategoryBoxProps) => {
+
+    const [hasMounted, setHasMounted] = useState<boolean>(false);
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, [])
 
     const params = useSearchParams();
     const router = useRouter();
 
     const handleCallback = useCallback(() => {
+
+        if(!hasMounted) return;
+    
         let currentQuery = {};
 
         if(params) {
@@ -68,4 +76,4 @@ const CategoryBox = ({key, icon: Icon, label, description, selected}: CategoryBo
   )
 }
 
-export default CategoryBox
+export default CategoryBox;
