@@ -22,11 +22,18 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
     setIsOpen((value) => !value);
   }, []);
 
+  const toggleRent = useCallback(() => {
+    if (!currentUser) return loginModal.onClose(); // we must return from here otherwise the logic will continue to execute
+
+    // open the rent modal if user is logged in
+
+  }, [currentUser, loginModal])
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={toggleRent}
           className="
                     hidden
                     md:block
