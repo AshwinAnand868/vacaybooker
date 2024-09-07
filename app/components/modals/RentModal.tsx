@@ -2,7 +2,9 @@
 
 import useRentModal from "@/app/hooks/useRentModal";
 import { useMemo, useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import Heading from "../Heading";
+import CategoryInput from "../inputs/CategoryInput";
 import { categories } from "../navbar/Categories";
 import Modal from "./Modal";
 
@@ -19,7 +21,42 @@ const RentModal = () => {
     
     const rentModal = useRentModal();
 
-    const [step, setStep] = useState(STEPS.CATEGORY); // first default step
+    const [step, setStep] = useState(STEPS.CATEGORY); // first default step in the modal process
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        reset,
+        watch,
+        formState: {
+            errors,
+        }
+    } = useForm<FieldValues>({
+        defaultValues: {
+            category: '',
+            location: null,
+            guestCount: 1,
+            roomCount: 1,
+            bathroomCount: 1,
+            imageSrc: '',
+            price: 1,
+            title: '',
+            description: ''
+        }
+    });
+
+    const category = watch('category');
+
+    // expect id to be string type, but value can be of any type for this form
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true
+        })
+    }
+
 
     const onBack = () => {
         setStep((value) => value - 1);
@@ -48,17 +85,22 @@ const RentModal = () => {
     }, [step]);
 
     let bodyContent = (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 p-2">
             <Heading
                 title="Which of these best describes your place?"
                 subtitle="Pick a category"
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto max-h-[50vh]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto max-h-[53vh]">
                 {categories.map((item) => {
                     return (
                         <div key={item.label}>
-                            {item.label}
+                            <CategoryInput
+                                onClick={(category) => setCustomValue('category', category)}
+                                selected={category === item.label} // when category being watched is equal to item label
+                                label={item.label}
+                                icon={item.icon}
+                            />
                         </div>
                     )
                 })}
