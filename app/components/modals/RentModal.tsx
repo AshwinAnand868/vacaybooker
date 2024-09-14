@@ -1,6 +1,7 @@
 'use client';
 
 import useRentModal from "@/app/hooks/useRentModal";
+import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import Heading from "../Heading";
@@ -48,6 +49,11 @@ const RentModal = () => {
     });
 
     const category = watch('category');
+    const location = watch('location');
+
+    const Map = useMemo(() => dynamic(() => import ('../Map'), {
+        ssr: false
+    }), [location]); // renders the map dynamically based on the selected location
 
     // expect id to be string type, but value can be of any type for this form
     const setCustomValue = (id: string, value: any) => {
@@ -118,10 +124,13 @@ const RentModal = () => {
                 />
 
                 <CountrySelect
+                    value={location}
                     onChange={(value) => {
-                        console.log(value);
+                        // console.log(value);
+                        setCustomValue('location', value);
                     }}
                 />
+                <Map center={location?.latlng} />
             </div>
         )
     }
