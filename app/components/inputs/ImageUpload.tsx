@@ -68,7 +68,7 @@ const ImageUpload = ({
                     <Image
                       alt="Upload"
                       fill
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: 'contain' }}
                       src={value}
                     />
                   </div>
