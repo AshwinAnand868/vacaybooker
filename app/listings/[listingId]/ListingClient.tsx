@@ -3,20 +3,23 @@
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
+import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeListing, SafeUser } from "@/app/types";
 import { Reservation } from "@prisma/client";
 import axios from "axios";
-import { eachDayOfInterval } from "date-fns";
+import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Range } from "react-date-range";
 import toast from "react-hot-toast";
 
 const initialDateRange = {
     startDate: new Date(),
     endDate: new Date(),
-    key: 'selection'
+    key: 'selection',
+    color: '#262626'
 }
 
 interface ListingClientProps {
@@ -55,7 +58,7 @@ const ListingClient = ({
     }, [reservations]);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [dateRange, setDateRange] = useState(initialDateRange);
+    const [dateRange, setDateRange] = useState<Range>(initialDateRange);
     const [totalPrice, setTotalPrice] = useState(listing.price);
 
 
@@ -86,8 +89,16 @@ const ListingClient = ({
 
     
     useEffect(() => {
-        
-    }, [dateRange, listing.price])
+        if(dateRange.endDate && dateRange.startDate) {
+            const dayCount = differenceInCalendarDays(dateRange.endDate, dateRange.startDate);
+
+            if(dayCount && listing.price) {
+                setTotalPrice(dayCount * listing.price);
+            } else {
+                setTotalPrice(listing.price);
+            }   
+        }
+    }, [dateRange, listing.price]);
 
     const category = useMemo(() => {
         return categories.find((item) => listing.category === item.label);
@@ -123,6 +134,23 @@ const ListingClient = ({
                         guestCount={listing.guestCount}
                         locationValue={listing.locationValue}
                     />
+
+                    <div className="
+                        order-first
+                        mb-10
+                        md:order-last
+                        md:col-span-3
+                    ">
+                        <ListingReservation
+                            price={listing.price}
+                            totalPrice={listing.price}
+                            disabledDates={disabledDates}
+                            disabled={isLoading}
+                            dateRange={dateRange}
+                            onSubmit={onCreateReservation}
+                            onChangeDate={(value: Range) => setDateRange(value)}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
