@@ -22,11 +22,11 @@ body,
 }
 
 .rdrMonth {
-  width: 100%;
-}
-
-.rdrCalendarWrapper {
-  font-size: 16px !important;
   width: 100% !important;
 }
+
+/* .rdrCalendarWrapper {
+  font-size: 16px !important;
+  width: 100% !important;
+} */
 
