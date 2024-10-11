@@ -143,7 +143,7 @@ const ListingClient = ({
                     ">
                         <ListingReservation
                             price={listing.price}
-                            totalPrice={listing.price}
+                            totalPrice={totalPrice}
                             disabledDates={disabledDates}
                             disabled={isLoading}
                             dateRange={dateRange}
