@@ -34,7 +34,9 @@ export default async function getReservations({
       },
     });
 
-    // technically, we could return all reservations here, but the problem could occur due to date objects in Listing, so it is best to return safe type
+    // technically, we could return all reservations here, 
+    // but the problem could occur due to date objects in 
+    // Listing, so it is best to return safe type
     // return reservations;
 
     const safeReservations = reservations.map((reservation) => {

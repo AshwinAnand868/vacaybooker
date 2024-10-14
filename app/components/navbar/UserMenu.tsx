@@ -32,7 +32,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
 
     // open the rent modal if user is logged in
     rentModal.onOpen();
-  }, [currentUser, loginModal, rentModal])
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -72,7 +72,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={currentUser?.image}/>
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
@@ -95,13 +95,30 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem onClick={() => { router.push("/trips")}} label="My trips" />
-                <MenuItem onClick={() => {}} label="My favourites" />
-                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/trips");
+                  }}
+                  label="My trips"
+                />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/favourites");
+                  }}
+                  label="My favourites"
+                />
+                <MenuItem
+                  onClick={() => {
+                    router.push("/reservations");
+                  }}
+                  label="My reservations"
+                />
                 <MenuItem onClick={() => {}} label="My properties" />
                 <MenuItem onClick={rentModal.onOpen} label="Rent my home" />
                 <hr />
-                <div onClick={() => signOut()} className="
+                <div
+                  onClick={() => signOut()}
+                  className="
                     px-4
                     py-3
                     hover:bg-neutral-100
@@ -109,9 +126,10 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                     font-semibold
                     flex
                     justify-between
-                ">
-                    Logout
-                    {/* <SignOutButton /> */}
+                "
+                >
+                  Logout
+                  {/* <SignOutButton /> */}
                 </div>
               </>
             ) : (
