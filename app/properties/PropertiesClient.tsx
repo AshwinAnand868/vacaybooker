@@ -1,5 +1,9 @@
 'use client';
 
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import ListingCard from "../components/listings/ListingCard";
@@ -14,11 +18,33 @@ const PropertiesClient = ({
     properties,
     currentUser
 }: PropertiesClientProps) => {
+
+    const router = useRouter();
+    const [deletingId, setDeletingId] = useState('');
+
+    const onCancel = useCallback((id: string) => {
+        setDeletingId(id);
+
+        axios.delete(`/api/listings/${id}`)
+        .then(() => {
+            toast.success('Property listing deleted.');
+            router.refresh();
+        })
+        .catch((error) => {
+            // toast.error('Something went wrong. Unable to delete the listing.')
+            toast.error(error?.response?.data?.error);
+        })
+        .finally(() => {
+            setDeletingId('');
+        })
+
+    }, [router]);
+
     return (
         <Container>
           <Heading
             title="Your Properties"
-            subtitle="Take a look at your properties below!"
+            subtitle="List of your properties"
           />
     
           <div
@@ -38,6 +64,10 @@ const PropertiesClient = ({
                 key={property.id} // making every listing card unique
                 data={property}
                 currentUser={currentUser}
+                actionId={property.id}
+                actionLabel="Delete property"
+                onAction={onCancel}
+                disabled={deletingId === property.id}
               />
             ))}
           </div>

@@ -28,7 +28,7 @@ export async function DELETE(req: Request, { params }: { params: IParams }) {
          OR 2. the user who reserved that place
          OR 3. the author who created the listing itself
     */
-    const reservation = await prisma.reservation.delete({
+    const reservation = await prisma.reservation.deleteMany({
         where: {
             id: id,
             OR: [

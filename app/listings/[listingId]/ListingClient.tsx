@@ -68,6 +68,8 @@ const ListingClient = ({
 
         setIsLoading(true);
 
+        // use case for creating stripe checkout here
+
         axios.post('/api/reservations', {
             totalPrice,
             startDate: dateRange.startDate,
