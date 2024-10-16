@@ -31,8 +31,8 @@ const PropertiesClient = ({
             router.refresh();
         })
         .catch((error) => {
-            // toast.error('Something went wrong. Unable to delete the listing.')
-            toast.error(error?.response?.data?.error);
+            toast.error('Something went wrong. Unable to delete the listing.')
+            // toast.error(error?.response?.data?.error);
         })
         .finally(() => {
             setDeletingId('');
