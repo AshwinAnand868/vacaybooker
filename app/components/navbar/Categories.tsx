@@ -103,7 +103,7 @@ const Categories = () => {
 
   // is a main page
   const params = useSearchParams();
-  const [sCategory, setSCategory] = useState<string | null>(null);
+  const [sCategory, setSCategory] = useState<string | null>(null); // selected category
   const [hasMounted, setHasMounted] = useState(false);
   const pathname = usePathname();
   const isMainPage = pathname === "/";
@@ -127,9 +127,6 @@ const Categories = () => {
   if (!isMainPage) {
     return null;
   }
-
-  console.log("selected category");
-  console.log(sCategory);
 
   return (
     <Container>
