@@ -1,11 +1,58 @@
 'use client';
 
+import useCountries from "@/app/hooks/useCountries";
 import useSearchModal from "@/app/hooks/useSearchModal";
+import { differenceInDays } from "date-fns";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const Search = () => {
 
   const searchModal = useSearchModal();
+  const params = useSearchParams();
+
+  const locationValue = params?.get('location');
+  const startDate = params?.get('startDate');
+  const endDate = params?.get('endDate');
+  const guestCount = params?.get('guestCount');
+
+  const { getByValue } = useCountries();
+
+  const locationLabel = useMemo(() => {
+
+    if(locationValue) {
+      return getByValue(locationValue)?.label;
+    } else {
+      return 'Anywhere';
+    }
+
+  }, [getByValue, locationValue]);
+
+  const durationLabel = useMemo(() => {
+    if(startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      let duration = differenceInDays(start, end);
+
+      if(duration === 0) {
+        duration = 1;
+      }
+
+      return `${duration} Day(s)`;
+    }
+
+    return 'Any Week';
+  }, [startDate, endDate]);
+
+  const guestLabel = useMemo(() => {
+    if(guestCount) {
+      return `${guestCount} Guest(s)`;
+    }
+
+    return 'Add Guests';
+  }, [guestCount])
+
 
   return (
     <div onClick={searchModal.onOpen}
@@ -35,7 +82,7 @@ const Search = () => {
                 px-6
             "
         >
-          Anywhere
+          {locationLabel}
         </div>
         <div
           className="
@@ -49,7 +96,7 @@ const Search = () => {
             text-center
           "
         >
-          Any Week
+          {durationLabel}
         </div>
         <div className="
           text-sm
@@ -61,7 +108,7 @@ const Search = () => {
           items-center
           gap-3
         ">
-          <div className="hidden sm:block">Add Guests</div>
+          <div className="hidden sm:block">{guestLabel}</div>
           <div
             className="
               p-2
