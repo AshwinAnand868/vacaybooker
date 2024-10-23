@@ -7,6 +7,7 @@ import RegisterModal from "./components/modals/RegisterModal";
 import RentModal from "./components/modals/RentModal";
 
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import ToasterProvider from "./providers/ToasterProvider";
@@ -33,7 +34,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={nunito.className}>
         <ToasterProvider />
-        <SearchModal />
+        <Suspense fallback={"Search Modal"}>
+          <SearchModal />
+        </Suspense>
         <RentModal />
         <LoginModal />
         <RegisterModal />

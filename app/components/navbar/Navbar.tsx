@@ -1,9 +1,7 @@
 "use client";
 
 import { SafeUser } from "@/app/types";
-import { Suspense } from "react";
 import Container from "../Container";
-import Loader from "../Loader";
 import Categories from "./Categories";
 import Logo from "./Logo";
 import Search from "./Search";
@@ -40,9 +38,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
           </div>
         </Container>
       </div>
-      <Suspense fallback={<Loader />}>
         <Categories />
-      </Suspense>
     </div>
   );
 };

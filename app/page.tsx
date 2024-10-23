@@ -14,6 +14,10 @@ export default async function Home({
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
+  if(!listings) {
+    return <EmptyState title="No listings available right now" subtitle="Check back later!" />
+  }
+
   // in the case where user has selected some specific criteria to meet and we don't have any listings available, then display EmptyState component
   if (listings.length === 0) {
     return <EmptyState showReset />
