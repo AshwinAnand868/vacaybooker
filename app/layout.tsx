@@ -6,13 +6,17 @@ import LoginModal from "./components/modals/LoginModal";
 import RegisterModal from "./components/modals/RegisterModal";
 import RentModal from "./components/modals/RentModal";
 
-import SearchModal from "./components/modals/SearchModal";
+import dynamic from "next/dynamic";
 import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import ToasterProvider from "./providers/ToasterProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const nunito = Nunito({ subsets: ["latin"] });
+
+const SearchModal = dynamic(() => import('./components/modals/SearchModal'), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Vacaybooker",
