@@ -13,6 +13,10 @@ const PropertiesPage = async () => {
 
     const properties = await getListings({userId: currentUser.id});
 
+    if(!properties) {
+        return <EmptyState title="You don't have any listed properties yet" subtitle="Put one on rent today" />
+      }
+
     if(properties.length === 0) {
         return <EmptyState title="No properties found" subtitle="Put one on rent today." />
     }
