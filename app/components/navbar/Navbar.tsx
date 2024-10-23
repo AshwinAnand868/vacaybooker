@@ -1,6 +1,7 @@
 "use client";
 
 import { SafeUser } from "@/app/types";
+import { Suspense } from "react";
 import Container from "../Container";
 import Categories from "./Categories";
 import Logo from "./Logo";
@@ -15,23 +16,25 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   // console.log(currentUser);
 
   return (
+    <Suspense fallback={"Navbar"}>
+
     <div className="fixed w-full bg-white z-10 shadow-sm">
       <div
         className="
-                py-1
-                border-b-[1px]
-            "
-      >
+        py-1
+        border-b-[1px]
+        "
+        >
         <Container>
           <div
             className="
-                        flex
-                        items-center
-                        justify-between
-                        gap-3
-                        md:gap-0
-                    "
-          >
+            flex
+            items-center
+            justify-between
+            gap-3
+            md:gap-0
+            "
+            >
             <Logo />
             <Search />
             <UserMenu currentUser={currentUser}/>
@@ -40,6 +43,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
       </div>
         <Categories />
     </div>
+            </Suspense>
   );
 };
 
