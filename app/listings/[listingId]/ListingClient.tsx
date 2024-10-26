@@ -6,7 +6,8 @@ import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+import { getStripe } from "@/app/libs/get-stripejs";
+import { SafeListing, SafeReservation, SafeUser, StripeData } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -61,7 +62,7 @@ const ListingClient = ({
     const [totalPrice, setTotalPrice] = useState(listing.price);
 
 
-    const onCreateReservation = useCallback(() => {
+    const onCreateReservation = useCallback(async () => {
         if(!currentUser) {
             return loginModal.onOpen();
         }
@@ -70,6 +71,17 @@ const ListingClient = ({
 
         // use case for creating stripe checkout here
 
+        const stripe = await getStripe();
+        if(!stripe) throw new Error('Stripe failed to initialize.');
+
+        const data: StripeData = {
+            name: listing.title,
+            totalPrice: totalPrice,
+            image: listing.imageSrc
+        };
+
+        // await createCheckoutSession(data);
+        
         axios.post('/api/reservations', {
             totalPrice,
             startDate: dateRange.startDate,
