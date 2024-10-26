@@ -26,3 +26,9 @@ export type SafeReservation = Omit<
     endDate: string;
     listing: SafeListing;
 }
+
+export type StripeData = {
+    totalPrice: number;
+    image: string;
+    name: string;
+}
