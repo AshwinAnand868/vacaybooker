@@ -31,8 +31,6 @@ const useFavorite = ({
         e.stopPropagation();
         
         // open login modal if user is not logged in
-        console.log("Current User")
-        console.log(currentUser);
         if(!currentUser) {
             return loginModal.onOpen();
         }

@@ -13,8 +13,6 @@ interface NavbarProps {
 }
 
 const Navbar = ({ currentUser }: NavbarProps) => {
-  // console.log(currentUser);
-
   return (
     <Suspense fallback={"Navbar"}>
 
