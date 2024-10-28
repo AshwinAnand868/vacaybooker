@@ -31,4 +31,9 @@ export type StripeData = {
     totalPrice: number;
     image: string;
     name: string;
+    startDate: string;
+    endDate: string;
+    listingId: string;
+    description: string;
+    userId: string;
 }

@@ -1,19 +1,19 @@
 'use client'
 
+import createCheckoutSession from "@/app/actions/stripe";
 import Container from "@/app/components/Container";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
+import useCountries from "@/app/hooks/useCountries";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { getStripe } from "@/app/libs/get-stripejs";
 import { SafeListing, SafeReservation, SafeUser, StripeData } from "@/app/types";
-import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
-import toast from "react-hot-toast";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -38,6 +38,9 @@ const ListingClient = ({
 
     const router = useRouter();
     const loginModal = useLoginModal();
+    const { getByValue } = useCountries();
+
+    const location = getByValue(listing.locationValue);
 
     const disabledDates = useMemo(() => {
 
@@ -77,26 +80,31 @@ const ListingClient = ({
         const data: StripeData = {
             name: listing.title,
             totalPrice: totalPrice,
-            image: listing.imageSrc
+            image: listing.imageSrc,
+            startDate: dateRange.startDate?.toISOString()!,
+            endDate: dateRange.endDate?.toISOString()!,
+            listingId: listing.id,
+            description: listing.description + ` in ${location?.region}, ${location?.label}`,
+            userId: currentUser.id
         };
 
-        // await createCheckoutSession(data);
+        await createCheckoutSession(data);
         
-        axios.post('/api/reservations', {
-            totalPrice,
-            startDate: dateRange.startDate,
-            endDate: dateRange.endDate,
-            listingId: listing?.id
-        }).then(() => {
-            toast.success('Listing Reserved!!');
-            setDateRange(initialDateRange);
-            router.push('/trips');
-        }).catch(() => {
-            toast.error('Something went wrong')
-        }).finally(() => {
-            // reset the loading state
-            setIsLoading(false);
-        })
+        // axios.post('/api/reservations', {
+        //     totalPrice,
+        //     startDate: dateRange.startDate,
+        //     endDate: dateRange.endDate,
+        //     listingId: listing?.id
+        // }).then(() => {
+        //     toast.success('Listing Reserved!!');
+        //     setDateRange(initialDateRange);
+        //     router.push('/trips');
+        // }).catch(() => {
+        //     toast.error('Something went wrong')
+        // }).finally(() => {
+        //     // reset the loading state
+        //     setIsLoading(false);
+        // })
     }, [totalPrice, dateRange, listing.id, loginModal, router, currentUser]);
 
     

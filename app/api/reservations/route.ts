@@ -1,21 +1,20 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const currentUser = await getCurrentUser();
+    // const currentUser = await getCurrentUser();
 
-    if(!currentUser) {
-        return NextResponse.error();
-    }
-
+    // if(!currentUser) {
+    //     return NextResponse.error();
+    // }
     const body = await req.json();
 
     const {
         listingId,
         startDate,
         endDate,
-        totalPrice
+        totalPrice,
+        userId
     } = body;
 
     if(!listingId || !startDate || !endDate || !totalPrice) {
@@ -28,8 +27,8 @@ export async function POST(req: Request) {
         }, data: {
             reservations: {
                 create: {
-                    userId: currentUser.id,
-                    totalPrice: totalPrice,
+                    userId: userId,
+                    totalPrice: Number(totalPrice),
                     startDate: startDate,
                     endDate: endDate,
                 }
